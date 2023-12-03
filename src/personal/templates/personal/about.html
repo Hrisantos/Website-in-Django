@@ -1,0 +1,21 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'style_login_register.css' %}">
+   <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'logout'  %}">Logout</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'todo' %}">ToDo</a>
+    </nav>
+</head>
+<body>
+    <h1 style="margin: 150px;">ERROR 404</h1> | <h2 style="text-align: center;">Nothing interesting About ME!</h2>
+</body>
+<footer>
+    <div>
+        <a>Created by Dumi!</a><br>
+        <a>2023</a>
+    </div>
+</footer>

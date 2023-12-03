@@ -1,0 +1,92 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'todo_style.css' %}">
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'logout'  %}">Logout</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'todo' %}">ToDo</a>
+    </nav>
+    <style>
+        tabel, th, td {
+            border: 1px solid black;
+        }
+    </style>
+    <div style="margin-top: 25px; text-align: center;" >
+        <form method="GET">
+            {% csrf_token %}
+            {{ myFilter.form }}
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+</head>
+<body>
+    <div id="d0">
+        <table style="width: 100%">
+        <thead style="width: 100%">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>STATUS</th>
+                <th>TASK</th>
+                <th>Creation Date</th>
+                <th>Departament</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody style="width: 100%">
+            {% if todo %}
+                {% for depart in todo %}
+                    {% if depart.status == "N/A" %}
+                        <tr>
+                            <td>{{ depart.id }}</td>
+                            <td>{{ depart.title }}</td>
+                            <td><a href="{% url 'change_status_na' depart.id %}">N/A</a></td>
+                            <td>{{ depart.task }}</td>
+                            <td>{{ depart.date_creation }}</td>
+                            <td>{{ depart.departament }}</td>
+                            <td><a href="{% url 'delete' depart.id %}">Remove</a></td>
+                        </tr>
+                    {% elif depart.status == "WIP" %}
+                         <tr>
+                            <td>{{ depart.id }}</td>
+                            <td>{{ depart.title }}</td>
+                            <td><a href="{% url 'change_status_wip' depart.id %}">WIP</a></td>
+                            <td>{{ depart.task }}</td>
+                            <td>{{ depart.date_creation }}</td>
+                            <td>{{ depart.departament }}</td>
+                            <td><a href="{% url 'delete' depart.id %}">Remove</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ depart.id }}</td>
+                            <td>{{ depart.title }}</td>
+                            <td><a href="{% url 'change_status_done' depart.id %}">DONE</a></td>
+                            <td>{{ depart.task }}</td>
+                            <td>{{ depart.date_creation }}</td>
+                            <td>{{ depart.departament }}</td>
+                            <td><a href="{% url 'delete' depart.id %}">Remove</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    </div>
+    <div id="d1">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+<footer>
+    <div>
+        <a>Created by Dumi!</a><br>
+        <a>2023</a>
+    </div>
+</footer>
+</html>
