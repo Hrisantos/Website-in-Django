@@ -7,3 +7,5 @@ Type pip install -r requirements.txt\
 Type cd src\
 Type python manage.py runserver
 
+
+
